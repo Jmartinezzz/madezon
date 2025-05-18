@@ -1,0 +1,29 @@
+/* 
+sm	576px
+md	768px
+lg	992px
+xl	1200px
+2xl	1400px 
+*/
+
+.input-search-wrapper {
+    width: 250px;
+}
+
+@media (min-width: 576px) {
+    .input-search-wrapper {
+        width: 330px;
+    }
+}
+
+@media (min-width: 768px) {
+    .input-search-wrapper {
+        width: 350px;
+    }
+}
+
+@media (min-width: 992px) {
+    .input-search-wrapper {
+        width: 550px;
+    }
+}
