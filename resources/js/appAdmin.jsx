@@ -16,7 +16,6 @@ import { LayoutProvider } from "@/Layouts/Admin/context/layoutcontext.jsx";
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-console.log('Admin')
 
 const adminPages = import.meta.glob('./Pages/Admin/**/*.jsx');
 const userPages = import.meta.glob('./Pages/**/*.jsx');

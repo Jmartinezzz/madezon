@@ -1,14 +1,15 @@
 import { useEventListener, useMountEffect, useUnmountEffect } from 'primereact/hooks';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useContext, useRef, useState } from 'react';
+import { LayoutContext } from "./Admin/context/layoutcontext";
 import { usePage } from '@inertiajs/react';
 import { classNames } from 'primereact/utils';
 import AppFooter from './Admin/AppFooter';
 import AppSidebar from './Admin/AppSidebar';
 import AppTopbar from './Admin/AppTopbar';
 
-const AdminLayout = ({ header, children }) => {
+const AdminLayout = ({ children }) => {
     const user = usePage().props.auth.user;
-    const [layoutState, setLayoutState] = useState({})
+    const { layoutConfig, layoutState, setLayoutState } = useContext(LayoutContext);
     const topbarRef = useRef(null);
     const sidebarRef = useRef(null);
     const [bindMenuOutsideClickListener, unbindMenuOutsideClickListener] = useEventListener({
@@ -102,15 +103,31 @@ const AdminLayout = ({ header, children }) => {
         unbindProfileMenuOutsideClickListener();
     });
 
+    const containerClass = classNames("layout-wrapper", {
+        "layout-overlay": layoutConfig.menuMode === "overlay",
+        "layout-static": layoutConfig.menuMode === "static",
+        "layout-static-inactive":
+            layoutState.staticMenuDesktopInactive &&
+            layoutConfig.menuMode === "static",
+        "layout-overlay-active": layoutState.overlayMenuActive,
+        "layout-mobile-active": layoutState.staticMenuMobileActive,
+        "p-input-filled": layoutConfig.inputStyle === "filled",
+        "p-ripple-disabled": !layoutConfig.ripple,
+    });
+
     return (
         <React.Fragment>
-            <div className="layout-static">
+            <div className={containerClass}>
                 <AppTopbar ref={topbarRef} />
-                <div ref={sidebarRef} className="layout-sidebar">
+                <div ref={sidebarRef} className="layout-sidebar shadow-3">
                     <AppSidebar />
                 </div>
                 <div className="layout-main-container">
-                    <div className="layout-main">{children}</div>
+                    <div className="layout-main">
+                        <div className="overflow-hidden bg-white shadow-2 px-4 pt-4 pb-5">
+                            {children}
+                        </div>
+                    </div>
                     <AppFooter />
                 </div>
                 <div className="layout-mask"></div>
