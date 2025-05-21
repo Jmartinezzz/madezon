@@ -1,0 +1,9 @@
+/* Cambiar el color de fondo de los botones inputnumber */
+.custom-inputnumber .p-inputnumber-button {
+    background-color: var(--primary-color-light);
+    color: white;
+}
+
+.custom-inputnumber .p-inputnumber-button:hover {
+    background-color: var(--primary-color);
+}

@@ -7,11 +7,13 @@ import 'primeflex/primeflex.css';
 import "primeicons/primeicons.css";
 
 import '../css/admin-layout.css'
+import '../css/custom-admin.css'
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { LayoutProvider } from "@/Layouts/Admin/context/layoutcontext.jsx";
+import { ToastProvider } from './Context/ToastContext';
 
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 
@@ -23,14 +25,16 @@ const userPages = import.meta.glob('./Pages/**/*.jsx');
 createInertiaApp({
     title: (title) => `${title} - ${appName} Admin`,
     resolve: (name) =>
-        resolvePageComponent(`./Pages/${name}.jsx`, {...adminPages, ...userPages}),
+        resolvePageComponent(`./Pages/${name}.jsx`, { ...adminPages, ...userPages }),
     setup({ el, App, props }) {
         const root = createRoot(el);
 
         root.render(
             <PrimeReactProvider>
                 <LayoutProvider>
-                    <App {...props} />
+                    <ToastProvider>
+                        <App {...props} />
+                    </ToastProvider>
                 </LayoutProvider>
             </PrimeReactProvider>
         );
