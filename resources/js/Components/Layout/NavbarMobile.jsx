@@ -5,7 +5,6 @@ import { Badge } from 'primereact/badge';
 import { Button } from 'primereact/button';;
 import { usePage } from '@inertiajs/react';
 import { Sidebar } from 'primereact/sidebar';
-import { Inertia } from '@inertiajs/inertia';
 import SidebarMobile from './SidebarMobileContent'
 import CartContent from '../Store/CartContent'
 
