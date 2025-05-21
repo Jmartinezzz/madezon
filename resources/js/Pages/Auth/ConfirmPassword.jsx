@@ -1,4 +1,3 @@
-import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
@@ -41,7 +40,7 @@ export default function ConfirmPassword() {
                         onChange={(e) => setData('password', e.target.value)}
                     />
 
-                    <InputError message={errors.password} className="mt-2" />
+                    <span className="mt-2">{errors.password}</span>
                 </div>
 
                 <div className="mt-4 flex items-center justify-end">
