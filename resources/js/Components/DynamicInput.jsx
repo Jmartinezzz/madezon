@@ -4,9 +4,10 @@ import { InputSwitch } from 'primereact/inputswitch';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
 import ValidationError from '@/Components/ValidationError';
+import UploadImages from '@/Components/UploadImages';
 import { InputNumber } from 'primereact/inputnumber';
 
-const DynamicInput = ({ field, data, setData, errors }) => {
+const DynamicInput = ({ field, data, setData, errors, clearErrors }) => {
 
     const renderInput = () => {
         switch (field.type) {
@@ -28,7 +29,10 @@ const DynamicInput = ({ field, data, setData, errors }) => {
                         name={field.name}
                         rows={field.rows}
                         value={data[field.name]}
-                        onChange={e => setData(field.name, e.target.value)}
+                        onChange={e => {
+                            setData(field.name, e.target.value)
+                            clearErrors(field.name)
+                        }}
                         placeholder={field.placeholder || ''}
                         className={`w-full ${errors[field.name] ? 'invalid' : ''}`}
                     />
@@ -64,7 +68,10 @@ const DynamicInput = ({ field, data, setData, errors }) => {
                         mode="currency"
                         currency="USD"
                         locale="en-US"
-                        onValueChange={e => setData(field.name, e.target.value)}
+                        onValueChange={e => {
+                            setData(field.name, e.target.value)
+                            clearErrors(field.name)
+                        }}
                         placeholder={field.placeholder || ''}
                         className={`w-full ${errors[field.name] ? 'invalid' : ''}`}
                         disabled={field.disabled}
@@ -87,6 +94,10 @@ const DynamicInput = ({ field, data, setData, errors }) => {
                         disabled={field.disabled}
                     />
                 );
+            case 'images':
+                 return (
+                    <UploadImages field={field} data={data} setData={setData} errors={errors} />                    
+                );
             case 'text':
             default:
                 return (
@@ -95,7 +106,10 @@ const DynamicInput = ({ field, data, setData, errors }) => {
                         name={field.name}
                         type={field.type || 'text'}
                         value={data[field.name]}
-                        onChange={e => setData(field.name, e.target.value)}
+                        onChange={e => {
+                            setData(field.name, e.target.value)
+                            clearErrors(field.name)
+                        }}
                         placeholder={field.placeholder || ''}
                         className={`w-full ${errors[field.name] ? 'invalid' : ''}`}
                         disabled={field.disabled}

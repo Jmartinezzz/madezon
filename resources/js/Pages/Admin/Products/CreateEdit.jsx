@@ -15,10 +15,11 @@ const CreateEdit = ({ item, showModal }) => {
                 { name: 'promo_price', label: 'Promo Price', placeholder: 'Promo price', type: 'currency' },
                 { name: 'stock', label: 'Stock', placeholder: 'stock', type: 'quantity' },
                 { name: 'is_active', label: 'Active', type: 'switch' },
+                { name: 'images', label: 'Product Images', type: 'images' },
             ]}
-            storeRoute={ route('admin.products.store') }
-            updateRoute="seguros.update"
-            indexRoute=''
+            storeRoute={route('admin.products.store')}
+            updateRoute="admin.products.update"
+            indexRoute={route('admin.products.index')}
         />
     );
 }

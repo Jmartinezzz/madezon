@@ -9,7 +9,7 @@ const GenericCreateEditForm = ({title, item, showModal, fields, indexRoute, stor
     const { showToast } = useToast();
     let action
 
-    const { data, setData, post, put, processing, errors } = useForm(
+    const { data, setData, post, put, processing, errors, clearErrors } = useForm(
         fields.reduce((acc, field) => {
             acc[field.name] = field.defaultValue || '';
 
@@ -59,7 +59,7 @@ const GenericCreateEditForm = ({title, item, showModal, fields, indexRoute, stor
         if(item) {
             put(route(updateRoute, item.id), {
                 onSuccess: () => {
-                    showToast('success', 'Éxito', `${title} edited with success`, 3000);
+                    showToast('success', 'Success', `${title} edited with success`, 4000);
                     router.get(indexRoute);
                 },
                 onError: (error) => {
@@ -69,7 +69,7 @@ const GenericCreateEditForm = ({title, item, showModal, fields, indexRoute, stor
         } else {
             post(storeRoute, {
                 onSuccess: () => {
-                    showToast('success', 'Éxito', `${title} created with success`, 3000);
+                    showToast('success', 'Success', `${title} created with success`, 4000);
                     router.get(indexRoute);
                 },
                 onError: (error) => {
@@ -99,7 +99,7 @@ const GenericCreateEditForm = ({title, item, showModal, fields, indexRoute, stor
                             <form onSubmit={handleSubmit}>
                                 <div className="card-body">
                                     {fields.map(field => (
-                                        <DynamicInput key={field.name} field={field} data={data} setData={setData} errors={errors} />
+                                        <DynamicInput key={field.name} field={field} data={data} setData={setData} errors={errors} clearErrors={clearErrors} />
                                     ))}
                                 </div>
                                 <div className="card-footer flex justify-content-end gap-3">

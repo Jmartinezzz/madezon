@@ -126,17 +126,17 @@ const GenericDataTable = forwardRef((
 
     const handleDelete = (item) => {
         confirmDialog({
-            message: `¿Estás seguro de borrar este registro?`,
+            message: 'Are you sure to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
             accept: () => {
                 router.delete(deleteRoute(item.id), {
                     preserveState: true,
-                    preserveScroll: true,
+                    // preserveScroll: true,
                     onSuccess: () => {
                         loadData();
-                        showToast('success', 'Éxito', 'registro eliminado correctamente', 3000);
+                        showToast('success', 'Éxito', 'Item deleted with success', 4000);
                     },
                     onError: (data) => {
                         console.log('Error deleting item', data);

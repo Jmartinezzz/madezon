@@ -22,6 +22,7 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd(request());
         return [
             "sub_category_id" => ['nullable'],
             "name" => ['required'],
@@ -32,6 +33,8 @@ class ProductRequest extends FormRequest
             "promo_price" => ['nullable'],
             "stock" => ['nullable'],
             "is_active" => ['nullable'],
+            'images' => ['nullable', 'array'],
+            'images.*' => ['image', 'mimes:jpeg,png', 'max:3000'],
         ];
     }
 
@@ -40,6 +43,11 @@ class ProductRequest extends FormRequest
         if ($this->is_active === null) {
             $this->merge([
                 'is_active' => false,
+            ]);
+        }
+        if ($this->stock === null) {
+            $this->merge([
+                'stock' => 0,
             ]);
         }
     }
