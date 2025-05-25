@@ -15,7 +15,21 @@ export default function NavbarMobile({ items, cartVisible, setCartVisible }) {
     return (
         <>
             {/* Botón de hamburguesa en móvil */}
-            <div className="md:hidden sticky top-0 z-5 flex justify-content-between align-items-center bg-primary px-6 py-3">
+            <div 
+                className="
+                    lg:hidden
+                    sticky
+                    top-0
+                    z-5
+                    flex
+                    justify-content-between
+                    align-items-center
+                    bg-primary
+                    px-3
+                    sm:px-5
+                    py-3
+                    "
+                >
                 <Button className="font-semibold" onClick={() => setSideVisible(true)} >
                     <i className="pi pi-bars p-overlay-badge" style={{ fontSize: '2rem' }}></i>
                 </Button>
@@ -23,6 +37,7 @@ export default function NavbarMobile({ items, cartVisible, setCartVisible }) {
                 <div className="input-search-wrapper">
                     <InputText placeholder="Encuentra lo que necesitas" type="text" className="w-full" />
                 </div>
+               <div className='px-2 sm:px-0'>
                 <i 
                     className="pi pi-shopping-cart p-overlay-badge cursor-pointer" 
                     style={{ fontSize: '1.8rem' }} 
@@ -30,6 +45,7 @@ export default function NavbarMobile({ items, cartVisible, setCartVisible }) {
                 >
                     <Badge value="10" severity="secondary"></Badge>
                 </i>
+               </div>
             </div>
             {/* Sidebar (menú lateral) en móvil */}
             <Sidebar visible={sidebarvisible} onHide={() => setSideVisible(false)}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
-import { router, Link, usePage } from "@inertiajs/react";
+import { router, Link } from "@inertiajs/react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { debounce } from 'lodash';
@@ -31,7 +31,6 @@ const GenericDataTable = forwardRef((
         moreActionButtons = [],
     }, ref) => {
 
-    const { auth, url } = usePage().props;
     const { showToast } = useToast();
     const [data, setData] = useState(initialData.data);
     const [loading, setLoading] = useState(false);
@@ -169,6 +168,13 @@ const GenericDataTable = forwardRef((
         }
     };
 
+    const priceBodyTemplate = (field) => {
+         return (item) => {
+            const value = Number(item[field]);
+            return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        }        
+    };
+
     const customBooleanBodyTemplate = (col) => {
         return (item) => {
             const tagProps = {
@@ -216,6 +222,7 @@ const GenericDataTable = forwardRef((
                         <Column
                             key={col.field}
                             header={col.header}
+                            field={col.field}
                             sortable={col.sortable}
                             filter={col.filter}
                             filterField={col.filterField}
@@ -255,6 +262,21 @@ const GenericDataTable = forwardRef((
                             style={{ minWidth: '2rem' }}
                         />
                     );
+                case 'money':
+                    return (
+                        <Column
+                            key={col.field}
+                            bodyClassName="text-center"
+                            header={col.header}
+                            sortable={col.sortable}
+                            filter={col.filter}
+                            filterField={col.filterField}
+                            filterElement={filterElement}
+                            body={priceBodyTemplate(col.field)}
+                            showFilterMenu={false}
+                            style={{ minWidth: '7rem' }}
+                        />
+                    );
                 case 'customBadge':
                     return (
                         <Column
@@ -281,6 +303,7 @@ const GenericDataTable = forwardRef((
                             filterField={col.filterField}
                             filterElement={filterElement}
                             showFilterMenu={false}
+                            bodyClassName={col.extraClasses}
                             style={{ minWidth: `${col.customWidth ?? 15}rem` }}
                         />
                     );

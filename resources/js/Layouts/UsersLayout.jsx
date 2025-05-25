@@ -78,9 +78,9 @@ export default function UsersLayout({ children }) {
             template: itemTemplate,
         },
         {
-            label: 'Dashboard',
-            icon: 'pi pi-home',
-            url: route('dashboard'),
+            label: 'Tienda',
+            icon: 'pi pi-shop',
+            url: route('store'),
             template: itemTemplate,
         },
         {
@@ -138,7 +138,7 @@ export default function UsersLayout({ children }) {
     return (
         <>
             <div className='flex flex-column min-h-screen'>
-                <div className="shadow-3 hidden md:block">
+                <div className="shadow-3 hidden lg:block">
                     <Menubar
                         model={items}
                         start={start}

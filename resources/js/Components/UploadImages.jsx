@@ -8,13 +8,12 @@ import ValidationError from '@/Components/ValidationError';
 
 const UploadImages = ({ field, data, setData, errors }) => {
     const fileUploadRef = useRef(null);
-
     const onTemplateSelect = (e) => {
         setData(field.name, e.files)
-    };    
+    };
 
     const onTemplateRemove = (file, callback) => {
-        const items = data[field.name].filter(loadedFiles => loadedFiles.name !== file.name )
+        const items = data[field.name].filter(loadedFiles => loadedFiles.name !== file.name)
         setData(field.name, items)
         callback();
     };
@@ -36,8 +35,21 @@ const UploadImages = ({ field, data, setData, errors }) => {
 
     // errores
     const handleErrors = () => {
-        // console.log(Object.keys(errors))
-        return "error en la imagen"
+        const keys = Object.keys(errors)
+        const ImageErrorIndex = keys.findIndex(key => key.includes('images'))
+        if (ImageErrorIndex == -1) {
+            return ""
+        }
+        const imageNumber = getImageNumber(keys[ImageErrorIndex])
+        const errorText = errors[keys[ImageErrorIndex]]
+        const textToFind = "s." + (imageNumber -1)
+
+        return errorText.replace(textToFind, " " +  imageNumber)        
+    }
+
+    const getImageNumber = (string) => {
+        const parts = string.split('.')
+        return parseInt(parts[1]) + 1
     }
 
     const itemTemplate = (file, props) => {

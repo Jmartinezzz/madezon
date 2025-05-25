@@ -25,18 +25,6 @@ const AppMenu = () => {
                         <li className="menu-separator" key={`separator-${i}`}></li>
                     )
                 )}
-
-                <a
-                    href="https://blocks.primereact.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ cursor: 'pointer' }}
-                >
-                    <img
-                        className="w-full mt-3"
-                        src="/layout/images/banner-primeblocks/dark.png"
-                    />
-                </a>
             </ul>
         </MenuProvider>
     );

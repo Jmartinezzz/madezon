@@ -22,7 +22,6 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd(request());
         return [
             "sub_category_id" => ['nullable'],
             "name" => ['required'],

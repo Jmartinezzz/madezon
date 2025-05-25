@@ -48,6 +48,8 @@ const ProductsDataTable = ({onMount}) => {
         {
             field: "stock",
             header: "Stock",
+            customWidth: "8",
+            extraClasses: "text-center"
         },
         {
             field: "short_description",
@@ -56,6 +58,7 @@ const ProductsDataTable = ({onMount}) => {
         {
             field: "price",
             header: "Price",
+            type: "money"
         },
         {
             field: "promo_price",
