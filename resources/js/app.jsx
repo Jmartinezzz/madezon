@@ -14,10 +14,12 @@ import './bootstrap';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+import { store } from './store';
+import { Provider } from 'react-redux';
+import { ToastProvider } from './Context/ToastContext';
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';    
 
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';        
-
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Madezon';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -30,8 +32,12 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <PrimeReactProvider>
-                <App {...props} />
+            <PrimeReactProvider value={{ ripple: true }}>
+                <Provider store={store}>
+                    <ToastProvider>
+                        <App {...props} />
+                    </ToastProvider>
+                </Provider>
             </PrimeReactProvider>
         );
     },

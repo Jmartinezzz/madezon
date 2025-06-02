@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { FileUpload } from 'primereact/fileupload';
 import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
@@ -7,7 +7,19 @@ import ValidationError from '@/Components/ValidationError';
 
 
 const UploadImages = ({ field, data, setData, errors }) => {
+    const [existingImages, setExistingImages] = useState(null)
     const fileUploadRef = useRef(null);
+
+    useEffect(() => {
+        if (data[field.name]) {
+            const isText = data[field.name].some(img => typeof img?.image_url === "string")
+            if (isText) {
+                setExistingImages(data[field.name]);
+                setData(field.name, []);
+            }
+        }
+    }, [data, data[field.name]]);
+
     const onTemplateSelect = (e) => {
         setData(field.name, e.files)
     };
@@ -42,9 +54,9 @@ const UploadImages = ({ field, data, setData, errors }) => {
         }
         const imageNumber = getImageNumber(keys[ImageErrorIndex])
         const errorText = errors[keys[ImageErrorIndex]]
-        const textToFind = "s." + (imageNumber -1)
+        const textToFind = "s." + (imageNumber - 1)
 
-        return errorText.replace(textToFind, " " +  imageNumber)        
+        return errorText.replace(textToFind, " " + imageNumber)
     }
 
     const getImageNumber = (string) => {
@@ -81,9 +93,47 @@ const UploadImages = ({ field, data, setData, errors }) => {
 
     const chooseOptions = { icon: 'pi pi-fw pi-images', iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined' };
     const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined' };
+    const handleRemoveImage = (img) => {
+        axios.post(route('admin.products.removeImage', img))
+            .then(re => {
+                setExistingImages(prevImages => prevImages.filter(prevImg => prevImg.id !== img.id))
+            })
+    }
 
     return (
         <div>
+            <div className="flex overflow-x-auto mb-3">
+            {existingImages && existingImages.map((img, index) => (
+                <div className='my-3 mr-3' style={{ position: 'relative', display: 'inline-block' }} key={index}>
+                    <img
+                        src={img.image_url}
+                        alt="preview"
+                        style={{ width: '90px', height: '90px', borderRadius: '8px' }}
+                    />
+                    <button
+                        type='button'
+                        onClick={() => handleRemoveImage(img)} // tu función para quitar imagen
+                        style={{
+                            position: 'absolute',
+                            top: '-10px',
+                            right: '-10px',
+                            background: 'red',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '24px',
+                            height: '24px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        ×
+                    </button>
+                </div>
+
+            ))
+            }
+            </div>
             <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
             <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
 

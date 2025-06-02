@@ -20,7 +20,6 @@ class RefreshLayout
             $previousAdminState = $request->session()->get('user') ?? null;
             $currentAdminState = $request->user()?->role;
 
-            \Log::info($previousAdminState);
             if ($previousAdminState !== $currentAdminState) {
                 $request->session()->put('user', $currentAdminState);
                 \Log::debug("se actualizo");

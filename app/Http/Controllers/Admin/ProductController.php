@@ -7,11 +7,14 @@ use App\Http\Requests\Admin\ProductRequest;
 use App\Services\DataTableService;
 use App\Services\ProductService;
 use App\Models\Admin\Product;
+use App\Models\Admin\ProductImage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
+
 
 class ProductController extends Controller
-{   
+{
     protected $dataTableService;
 
     public function __construct(protected ProductService $productService)
@@ -28,21 +31,27 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-       $this->productService->create($request->validated());
+        $this->productService->create($request->validated());
     }
 
     public function edit(Product $product)
     {
+        $product->load('images');
         return response()->json(['item' => $product]);
     }
 
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->validated());
+        $this->productService->update($request->validated(), $product);
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
+    }
+
+    public function removeImage(ProductImage $productImage)
+    {
+        return $this->productService->removeImage($productImage);
     }
 }

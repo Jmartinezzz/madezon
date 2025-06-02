@@ -57,7 +57,11 @@ const GenericCreateEditForm = ({title, item, showModal, fields, indexRoute, stor
     const handleSubmit = (e) => {
         e.preventDefault();
         if(item) {
-            put(route(updateRoute, item.id), {
+            const routesNeedPostToUpdate = ['admin.products.update'];
+            const isPostRequired = routesNeedPostToUpdate.includes(updateRoute)
+            const submit = isPostRequired ? post : put;
+            submit(route(updateRoute, item.id),
+            {
                 onSuccess: () => {
                     showToast('success', 'Success', `${title} edited with success`, 4000);
                     router.get(indexRoute);

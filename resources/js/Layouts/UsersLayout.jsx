@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menubar } from 'primereact/menubar';
 import { Avatar } from 'primereact/avatar';
 import { Menu } from 'primereact/menu';
@@ -9,11 +9,20 @@ import { useRef } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import NavbarMobile from '@/Components/Layout/NavbarMobile';
 import { motion } from 'framer-motion';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadCart } from '@/store/cart/cartThunks';
 
 export default function UsersLayout({ children }) {
     const user = usePage().props.auth.user;
     const menuRef = useRef(null);
+    const dispatch = useDispatch();
     const [cartVisible, setCartVisible] = useState(false);
+    const cartItems = useSelector(state => state.cart.items);
+    const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+    useEffect(() => {
+        dispatch(loadCart());
+    }, []);
 
     const userMenu = [
         {
@@ -97,6 +106,7 @@ export default function UsersLayout({ children }) {
         </Link>
     );
 
+    //please refactor
     const end = user ? (
         <div className="flex align-items-center gap-3">
             <div className="input-search-wrapper">
@@ -112,12 +122,12 @@ export default function UsersLayout({ children }) {
                 onClick={(e) => menuRef.current.toggle(e)}
             />
             <Menu model={userMenu} popup ref={menuRef} />
-            <i 
-                className="pi pi-shopping-cart p-overlay-badge cursor-pointer" 
+            <i
+                className="pi pi-shopping-cart p-overlay-badge cursor-pointer"
                 style={{ fontSize: '1.8rem' }}
-                onClick={() => setCartVisible(true)}    
+                onClick={() => setCartVisible(true)}
             >
-                <Badge value="10" severity="secondary"></Badge>
+                <Badge value={totalItems} severity="secondary"></Badge>
             </i>
         </div>
     ) : (
@@ -126,12 +136,19 @@ export default function UsersLayout({ children }) {
                 <InputText placeholder="Encuentra lo que necesitas" type="text" className="w-full" />
             </div>
             <Avatar
-                image="assets/img/avatar-thumbnail.png"
+                image="/assets/img/avatar-thumbnail.png"
                 shape="circle"
                 className="cursor-pointer"
                 onClick={(e) => menuRef.current.toggle(e)}
             />
             <Menu model={guestMenu} popup ref={menuRef} />
+            <i
+                className="pi pi-shopping-cart p-overlay-badge cursor-pointer"
+                style={{ fontSize: '1.8rem' }}
+                onClick={() => setCartVisible(true)}
+            >
+                <Badge value={totalItems} severity="secondary"></Badge>
+            </i>
         </div>
     );
 
