@@ -1,1 +1,0 @@
-import{j as t}from"./api.esm-D4tNrOrE.js";function e({type:o="text",className:r="",...s}){return t.jsx("input",{type:o,className:`border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ${r}`,...s})}export{e as T};

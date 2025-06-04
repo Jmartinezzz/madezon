@@ -34,11 +34,12 @@ class WompiService
                 'identificadorEnlaceComercio' => $order->reference,
                 'monto' => $order->amount,
                 'nombreProducto' => $this->order_details($order->items),
-                // 'configuracion' => [
-                //     "duracionInterfazIntentoMinutos" => 10,
-                //     "urlWebhook" => "https://b993-190-53-30-163.ngrok-free.app/checkout/success",
-                //     "notificarTransaccionCliente" => true
-                // ]
+                'configuracion' => [
+                    "duracionInterfazIntentoMinutos" => 10,
+                    "urlRedirect" => "https://madezon.app/profile",
+                    "urlWebhook" => "https://madezon.app/checkout/webhook",
+                    "notificarTransaccionCliente" => true
+                ]
             ]);
         if(isset($response->json()['serviceError'])) {
             return response()->json([], 400);
@@ -46,7 +47,8 @@ class WompiService
         $payment_data = $response->json();
         $order->update([
             'payment_link' => $payment_data['urlEnlace'],
-            'payment_qr' => $payment_data['urlQrCodeEnlace']
+            'payment_qr' => $payment_data['urlQrCodeEnlace'],
+            'payment_expiry_at' => now()->addMinutes(10),
         ]);
         return $payment_data;
     }

@@ -18,11 +18,10 @@ class RefreshLayout
     {
         if ($request->hasSession()) {
             $previousAdminState = $request->session()->get('user') ?? null;
-            $currentAdminState = $request->user()?->role;
+            $currentAdminState = $request->user()?->role ?? 'guest';
 
             if ($previousAdminState !== $currentAdminState) {
                 $request->session()->put('user', $currentAdminState);
-                \Log::debug("se actualizo");
                 return Inertia::location($request->fullUrl());
             }
         }

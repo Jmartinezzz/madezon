@@ -20,24 +20,30 @@ export default function ProductCard({ product }) {
   );
   const footer = (
     <div className='mt-auto'>
-      <AddRemoveButton extraClasses="w-full shadow-4 mt-auto" extraStyle={{paddingTop: '.9rem', paddingBottom: '.9rem'}} product={product} />
+      <AddRemoveButton extraClasses="w-full shadow-4 mt-auto" extraStyle={{ paddingTop: '.9rem', paddingBottom: '.9rem' }} product={product} />
     </div>
   );
 
-  const title = (
-    <div className='flex justify-content-between align-items-start'>
-      <span className="flex-1 break-words">
-        { product.name }
-      </span>
-      <Badge value={`$${product.price}`} size="large"></Badge>
-    </div>
-  );
+  const title = (() => {
+    const priceToShow = product.promo_price ?? product.price
+    return (
+      <div className='flex justify-content-between align-items-start'>
+        <span className="flex-1 break-words">
+          {product.name}
+        </span>
+        <Badge severity={product.promo_price ? 'warning' : 'primary'} value={`$${priceToShow}`} size="large"></Badge>
+      </div>
+    )
+  })();
   const subTitle = (
     <div className='flex gap-1'>
       {product.sub_category_id && (
         <Tag severity="warning" value="celulares" rounded style={{ fontSize: '0.7rem', padding: '12px 8px', height: '22px' }} ></Tag>
       )}
       <Tag severity="warning" value={`quedan ${product.stock}`} rounded style={{ fontSize: '0.7rem', padding: '12px 8px', height: '22px' }} ></Tag>
+      {product.promo_price && (
+        <Tag severity="warning" value="descuento" rounded style={{ fontSize: '0.7rem', padding: '12px 8px', height: '22px' }} ></Tag>
+      )}
     </div>
   );
 
@@ -47,7 +53,7 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="card flex justify-content-center">
-      <Card 
+      <Card
         title={title}
         subTitle={subTitle}
         footer={footer}

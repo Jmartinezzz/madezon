@@ -10,10 +10,11 @@ import { Link, usePage } from '@inertiajs/react';
 import NavbarMobile from '@/Components/Layout/NavbarMobile';
 import { motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadCart } from '@/store/cart/cartThunks';
+import { loadCart, migrateGuestCartToUserCart } from '@/store/cart/cartThunks';
 
 export default function UsersLayout({ children }) {
     const user = usePage().props.auth.user;
+
     const menuRef = useRef(null);
     const dispatch = useDispatch();
     const [cartVisible, setCartVisible] = useState(false);
@@ -21,17 +22,27 @@ export default function UsersLayout({ children }) {
     const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     useEffect(() => {
-        dispatch(loadCart());
+        const flag = localStorage.getItem('proceeded_to_checkout_as_guest');
+        if (flag && user) {
+            dispatch(migrateGuestCartToUserCart(user.id));
+            localStorage.removeItem('proceeded_to_checkout_as_guest');
+        }
+        dispatch(loadCart(user?.id));
     }, []);
 
     const userMenu = [
         {
-            label: 'Profile',
+            label: 'Perfil',
             icon: 'pi pi-user',
             command: () => (window.location.href = route('profile.edit')),
         },
         {
-            label: 'Logout',
+            label: 'Mis Pedidos',
+            icon: 'pi pi-book',
+            command: () => (window.location.href = route('profile.edit')),
+        },
+        {
+            label: 'Salir',
             icon: 'pi pi-sign-out',
             command: () => {
                 const form = document.createElement('form');

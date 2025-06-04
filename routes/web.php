@@ -23,9 +23,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/checkout/webhook', [OrderController::class, 'webhook'])->name('checkout.webhook');
-Route::post('/checkout/success', [OrderController::class, 'handleWompiSuccess'])->name('checkout.success');
-Route::post('/test', [OrderController::class, 'handleWompiSuccess']);
+Route::post('/checkout/webhook', [OrderController::class, 'handleWompiWebhook']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

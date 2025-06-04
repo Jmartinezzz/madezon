@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Enums\OrderStatus;
+use App\Events\OrderCompleted;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product;
@@ -43,7 +44,7 @@ class OrderController extends Controller
 
         foreach ($cart as $item) {
             $product = $products[$item['id']];
-            $total += ($product->promo_price ?? $product->price) * $item['quantity']; // asume que el precio es en centavos
+            $total += ($product->promo_price ?? $product->price) * $item['quantity'];
         }
 
         // Transacción
@@ -84,28 +85,15 @@ class OrderController extends Controller
         }
     }
 
-    public function webhook(Request $request)
-    {
-        \Log::info($request);
-    }
+    public function handleWompiWebhook(Request $request)
+    {        
+        $reference = $request->get('IdExterno', null);
+        $transaction_result = $request->get('ResultadoTransaccion', null);
+        $order = Order::where('reference', $reference)->firstOrFail();
 
-    public function handleWompiSuccess(Request $request)
-    {
-        \Log::info($request);
-        \Log::info($request->all());
-        \Log::info('here we are');
-        return 2143;
-        // $reference = $request->get('reference');
-
-        // $order = Order::where('reference', $reference)->firstOrFail();
-
-        // // Aquí deberías validar la transacción consultando la API de Wompi con su `id`
-        // // Por simplicidad, solo vamos a cambiar el estado si no está pagado
-        // if ($order->status === OrderStatus::Pendiente) {
-        //     // TODO: Validar con Wompi el estado real
-        //     $order->update(['status' => OrderStatus::Pagado]);
-        // }
-
-        // return inertia('Checkout/Success', ['order' => $order]);
+        if ($transaction_result === "ExitosaAprobada" && $order && $order->status === OrderStatus::Pendiente) {
+            $order->update(['status' => OrderStatus::Pagado]);
+            OrderCompleted::dispatch($order);
+        }
     }
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { usePage } from '@inertiajs/react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useToast } from "@/Context/ToastContext";
 import { Button } from 'primereact/button';
@@ -6,18 +7,19 @@ import { addToCart, removeFromCart } from '@/store/cart/cartThunks';
 
 export default function AddRemoveButton({ extraClasses, extraStyle, product }) {
   const items = useSelector(state => state.cart.items);
+  const user = usePage().props.auth.user;
   const dispatch = useDispatch();
   const { showToast } = useToast();
 
   const isInCart = items.some(p => p.id === product.id);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
+    dispatch(addToCart(product, user?.id));
     showToast('success', 'Éxito', 'Producto agregado al carrito', 3000);
   };
 
   const handleRemoveToCart = () => {
-    dispatch(removeFromCart(product.id));
+    dispatch(removeFromCart(product.id, user?.id));
     showToast('success', 'Éxito', 'Producto removido del carrito', 3000);
   };
 

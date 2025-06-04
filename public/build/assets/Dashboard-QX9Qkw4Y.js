@@ -1,0 +1,1 @@
+import{j as s,a}from"./CheckoutSuccess-SBzXFiMX.js";import{A as r}from"./AdminLayout-DZ-ed3yt.js";import"./layoutcontext-Bg1F2fO6.js";function o(){return s.jsxs(r,{children:[s.jsx(a,{title:"Dashboard"}),s.jsx("div",{className:"",children:s.jsx("div",{className:"text-gray-900",children:"You're logged in! ds"})})]})}export{o as default};

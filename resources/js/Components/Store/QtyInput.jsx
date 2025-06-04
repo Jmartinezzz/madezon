@@ -1,17 +1,19 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { usePage } from '@inertiajs/react';
 import { InputNumber } from 'primereact/inputnumber';
 import { updateCartQuantity } from '@/store/cart/cartThunks';
 
 export default function QtyInput({ extraClasses, product, quantity, setQuantity }) {
   const dispatch = useDispatch();
+  const user = usePage().props.auth.user
   const items = useSelector(state => state.cart.items);
   const isInCart = items.some(p => p.id === product.id);
   const handleQuantityChange = (e) => {
     const newQuantity = e.value;
     if (newQuantity >= 1) {
       if (isInCart) {
-        dispatch(updateCartQuantity(product.id, newQuantity));
+        dispatch(updateCartQuantity(product.id, newQuantity, user?.id));
       } else {
         setQuantity(newQuantity);
       }

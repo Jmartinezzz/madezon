@@ -1,0 +1,56 @@
+POST https://api.wompi.sv/EnlacePago HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im9kS0RheHZ5bWk5cUxUeXI5MS11RlEiLCJ0eXAiOiJhdCtqd3QifQ.eyJuYmYiOjE3NDg5ODMyNDcsImV4cCI6MTc0ODk4Njg0NywiaXNzIjoiaHR0cHM6Ly9pZC53b21waS5zdiIsImF1ZCI6IndvbXBpX2FwaSIsImNsaWVudF9pZCI6Ijc5ZDc4M2I1LWJmNDUtNDYwMy05OGEwLTNkZWVhMzI1NDk3MSIsInNjb3BlIjpbIndvbXBpX2FwaSJdfQ.aj5LlQmZuqbZccsNvS4LPqMJ4HifW-amLN_t5iNPh687ESnogHnpxVVwMUpXt0n6gSSI67Y6MFSVuHUgNbbT9lF8q8ys_r3uD8av6gui0voxkjxorrwKByBJlKo7mT8oQcSsE-DWazIgYyFH0G0N_Jm8QjFe5JTBEr0tJzYACJ1wi0qLPkSHFXd1K05T3TuUVuHYwyUFga2Kn3PEyzuFz5RXihxlKd8vAjWCJFHe0r4sl8_93Z7tlpb7cFuLF8WZq_9EbIKny1xt_g71NI-_O8xnwn4XPyfatBdfOt_7PfkCiiicHZvbHVcroq3Hra4sv0TrQ2IKE3YDorPWB1422Q
+
+{
+    "identificadorEnlaceComercio": "s123213qdasdasdd234",
+    "monto": 25,
+    "nombreProducto": "camisa sucia"
+}
+
+### test hook
+POST http://localhost:8000/checkout/webhook
+content-type: application/json
+
+{
+  "IdCuenta": "1e9cc597-7b5a-4ce6-b36f-0f81e341ee98",
+  "FechaTransaccion": "2025-06-04T10:24:09.3804425-06:00",
+  "Monto": "49.00",
+  "ModuloUtilizado": "BotonPago",
+  "FormaPagoUtilizada": "PagoNormal",
+  "IdTransaccion": "16a1b665-31f8-44b1-b092-1e6766d280f6",
+  "ResultadoTransaccion": "ExitosaAprobada",
+  "CodigoAutorizacion": "9164155a-9469-4d13-a32f-5d0c21593180",
+  "IdIntentoPago": "606ddb22-e218-4697-8db3-aa25052f5a5b",
+  "CantidadCuotas": null,
+  "Cantidad": 1,
+  "EsProductiva": false,
+  "Aplicativo": {
+    "Nombre": "madezon-test",
+    "Url": null,
+    "Id": "79d783b5-bf45-4603-98a0-3deea3254971"
+  },
+  "EnlacePago": {
+    "Id": 2000552,
+    "IdentificadorEnlaceComercio": "165ddec6-ef39-49fe-8703-8a1fa9e846ca",
+    "NombreProducto": "Aceite de manzana x 2"
+  },
+  "Cliente": {
+    "Nombre": "jorge canizales",
+    "EMail": "test@test.com",
+    "Celular": "74527017"
+  },
+  "Tarjeta": "0000 0000 0000 1111",
+  "EsInternacional": true,
+  "IdExterno": "165ddec6-ef39-49fe-8703-8a1fa9e846ca"
+}
+
+### test prod
+POST https://madezon.app/checkout/success
+content-type: application/json
+
+{
+    "identificadorEnlaceComercio": "s123213qdasdasdd234",
+    "monto": 25,
+    "nombreProducto": "camisa sucia"
+}
