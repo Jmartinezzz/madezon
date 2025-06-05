@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Order;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Validation\ValidationException;
 
 class WompiService
 {
@@ -44,13 +43,21 @@ class WompiService
         if(isset($response->json()['serviceError'])) {
             return response()->json([], 400);
         }
+
         $payment_data = $response->json();
         $order->update([
+            'payment_id' => $payment_data['idEnlace'],
             'payment_link' => $payment_data['urlEnlace'],
             'payment_qr' => $payment_data['urlQrCodeEnlace'],
             'payment_expiry_at' => now()->addMinutes(10),
         ]);
         return $payment_data;
+    }
+
+    public function invalidarEnlacePago(int $payment_id, string $token)
+    {
+        $response = Http::withToken($token)
+            ->put("https://api.wompi.sv/EnlacePago/{$payment_id}/desactivar", []);
     }
 
     private function order_details($items) 

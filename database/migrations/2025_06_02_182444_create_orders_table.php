@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('status', ['cancelado', 'pendiente', 'pagado'])->default('pendiente');
             $table->decimal('amount', 10,2);
             $table->unsignedBigInteger('amount_in_cents');
+            $table->string('payment_id')->nullable();
             $table->string('payment_link')->nullable();
             $table->string('payment_qr')->nullable();
             $table->datetime('payment_expiry_at')->nullable();

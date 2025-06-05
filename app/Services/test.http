@@ -1,3 +1,14 @@
+### get token
+POST https://id.wompi.sv/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&
+client_id=79d783b5-bf45-4603-98a0-3deea3254971&
+client_secret=130197a2-b8cf-499f-8b49-b7cfb7195bff&
+audience=
+
+
+### enlace pago
 POST https://api.wompi.sv/EnlacePago HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im9kS0RheHZ5bWk5cUxUeXI5MS11RlEiLCJ0eXAiOiJhdCtqd3QifQ.eyJuYmYiOjE3NDg5ODMyNDcsImV4cCI6MTc0ODk4Njg0NywiaXNzIjoiaHR0cHM6Ly9pZC53b21waS5zdiIsImF1ZCI6IndvbXBpX2FwaSIsImNsaWVudF9pZCI6Ijc5ZDc4M2I1LWJmNDUtNDYwMy05OGEwLTNkZWVhMzI1NDk3MSIsInNjb3BlIjpbIndvbXBpX2FwaSJdfQ.aj5LlQmZuqbZccsNvS4LPqMJ4HifW-amLN_t5iNPh687ESnogHnpxVVwMUpXt0n6gSSI67Y6MFSVuHUgNbbT9lF8q8ys_r3uD8av6gui0voxkjxorrwKByBJlKo7mT8oQcSsE-DWazIgYyFH0G0N_Jm8QjFe5JTBEr0tJzYACJ1wi0qLPkSHFXd1K05T3TuUVuHYwyUFga2Kn3PEyzuFz5RXihxlKd8vAjWCJFHe0r4sl8_93Z7tlpb7cFuLF8WZq_9EbIKny1xt_g71NI-_O8xnwn4XPyfatBdfOt_7PfkCiiicHZvbHVcroq3Hra4sv0TrQ2IKE3YDorPWB1422Q
@@ -48,6 +59,17 @@ content-type: application/json
 ### test prod
 POST https://madezon.app/api/checkout/webhook
 content-type: application/json
+
+{
+    "identificadorEnlaceComercio": "s123213qdasdasdd234",
+    "monto": 25,
+    "nombreProducto": "camisa dorada"
+}
+
+### test invalidar 2005669
+PUT https://api.wompi.sv/EnlacePago/2005669/desactivar
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im9kS0RheHZ5bWk5cUxUeXI5MS11RlEiLCJ0eXAiOiJhdCtqd3QifQ.eyJuYmYiOjE3NDkxNTc2MjksImV4cCI6MTc0OTE2MTIyOSwiaXNzIjoiaHR0cHM6Ly9pZC53b21waS5zdiIsImF1ZCI6IndvbXBpX2FwaSIsImNsaWVudF9pZCI6Ijc5ZDc4M2I1LWJmNDUtNDYwMy05OGEwLTNkZWVhMzI1NDk3MSIsInNjb3BlIjpbIndvbXBpX2FwaSJdfQ.Ev7fYYLzWer4AR53BO6Tg12t4dTcEk-zFBTa01Sm0lvpEXFxV_YS23OL5Xk7VLMSsPAooorqUmFTL3YkTiWpyqpjwg00tOJYd92bLJW6OhVrGZCc6MILwI1mfTdnzCFxssBrhRIGGZ0NiecC5BPUeP_RQZTF--vmISbceWMn63m2-Mu7s2QvvZqvh56U3yva9YOoBcZXUOeK7pK3a54oBXUXLLZ_jdGXYWyugbLzImElZwtuPxi2iu_m5gIEsAKmeAceYyb8ROhjBS7-4s1WK3bSqkj10SOIWgEMQjxOOU4Qzopbk507AiE7uw_BfKOMqUYM-qmLBbARWFwIRrub8g
 
 {
     "identificadorEnlaceComercio": "s123213qdasdasdd234",

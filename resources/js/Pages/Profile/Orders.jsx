@@ -34,7 +34,7 @@ export default function Orders({ orders }) {
                     </div>
                 ) : (
                     <Card title="Historial de Ordenes" className="shadow-4 mt-5 border-round-md">
-                        <Accordion className="w-full">
+                        <Accordion multiple className="w-full">
                             {orders.map((order) => (
                                 <AccordionTab key={order.id} header={`Orden #${order.id}`}>
                                     <div className="p-1">

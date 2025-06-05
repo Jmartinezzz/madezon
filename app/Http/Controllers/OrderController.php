@@ -100,6 +100,9 @@ class OrderController extends Controller
         if ($transaction_result === "ExitosaAprobada" && $order && $order->status === OrderStatus::Pendiente) {
             $order->update(['status' => OrderStatus::Pagado]);
             OrderCompleted::dispatch($order);
+
+            $authToken = $this->wompiService->getAccessToken();
+            $this->wompiService->invalidarEnlacePago($order->payment_id, $authToken);
         }
     }
 }
