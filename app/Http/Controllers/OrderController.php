@@ -87,7 +87,8 @@ class OrderController extends Controller
     }
 
     public function handleWompiWebhook(Request $request)
-    {        
+    {
+        \Log::debug($request->all());
         $reference = $request->get('IdExterno', null);
         $transaction_result = $request->get('ResultadoTransaccion', null);
         $order = Order::where('reference', $reference)->first();

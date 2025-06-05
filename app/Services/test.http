@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im9kS0RheHZ5bWk5cUxUeXI5MS11Rl
 }
 
 ### test hook
-POST http://localhost:8000/checkout/webhook
+POST http://localhost:8000/api/checkout/webhook
 content-type: application/json
 
 {
@@ -46,11 +46,11 @@ content-type: application/json
 }
 
 ### test prod
-POST https://madezon.app/checkout/success
+POST https://madezon.app/checkout/webhook
 content-type: application/json
 
 {
     "identificadorEnlaceComercio": "s123213qdasdasdd234",
     "monto": 25,
-    "nombreProducto": "camisa sucia"
+    "nombreProducto": "camisa blanca"
 }

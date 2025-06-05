@@ -19,8 +19,6 @@ Route::get('/tienda', [StoreController::class, 'index'])->name('store');
 
 Route::get('/productos/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 
-Route::post('/checkout/webhook', [OrderController::class, 'handleWompiWebhook']);
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/orders', [ProfileController::class, 'orders'])->name('profile.orders');
