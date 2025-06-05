@@ -36,7 +36,7 @@ class WompiService
                 'nombreProducto' => $this->order_details($order->items),
                 'configuracion' => [
                     "duracionInterfazIntentoMinutos" => 10,
-                    "urlRedirect" => "https://madezon.app/profile",
+                    "urlRedirect" => "https://madezon.app/orders",
                     "urlWebhook" => "https://madezon.app/checkout/webhook",
                     "notificarTransaccionCliente" => true
                 ]

@@ -27,6 +27,7 @@ Route::post('/checkout/webhook', [OrderController::class, 'handleWompiWebhook'])
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/orders', [ProfileController::class, 'orders'])->name('profile.orders');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 

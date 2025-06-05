@@ -25,6 +25,18 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display the user's orders.
+     */
+    public function orders(): Response
+    {
+        $user = auth()->user();
+        $user->load('orders.items.product');
+        return Inertia::render('Profile/Orders', [
+            'orders' => $user->orders
+        ]);
+    }
+
+    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse

@@ -53,6 +53,7 @@ class OrderController extends Controller
         try {
             // Crear orden
             $order = Order::create([
+                'user_id' => auth()->user()->id,
                 'reference' => Str::uuid(),
                 'status' => OrderStatus::Pendiente,
                 'amount' => $total,
@@ -89,7 +90,11 @@ class OrderController extends Controller
     {        
         $reference = $request->get('IdExterno', null);
         $transaction_result = $request->get('ResultadoTransaccion', null);
-        $order = Order::where('reference', $reference)->firstOrFail();
+        $order = Order::where('reference', $reference)->first();
+
+        if (!$order) {
+            return response()->json("No item found", 400);
+        }
 
         if ($transaction_result === "ExitosaAprobada" && $order && $order->status === OrderStatus::Pendiente) {
             $order->update(['status' => OrderStatus::Pagado]);
