@@ -39,7 +39,7 @@ export default function UsersLayout({ children }) {
         {
             label: 'Mis Pedidos',
             icon: 'pi pi-book',
-            command: () => (window.location.href = route('profile.edit')),
+            command: () => (window.location.href = route('profile.orders')),
         },
         {
             label: 'Salir',

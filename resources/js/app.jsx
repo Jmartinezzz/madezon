@@ -17,7 +17,7 @@ import { createRoot } from 'react-dom/client';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { ToastProvider } from './Context/ToastContext';
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';    
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api'; 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Madezon';
 
