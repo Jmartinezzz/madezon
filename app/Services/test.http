@@ -46,11 +46,11 @@ content-type: application/json
 }
 
 ### test prod
-POST https://madezon.app/checkout/webhook
+POST https://madezon.app/api/checkout/webhook
 content-type: application/json
 
 {
     "identificadorEnlaceComercio": "s123213qdasdasdd234",
     "monto": 25,
-    "nombreProducto": "camisa blanca"
+    "nombreProducto": "camisa dorada"
 }

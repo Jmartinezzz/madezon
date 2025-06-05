@@ -37,7 +37,7 @@ class WompiService
                 'configuracion' => [
                     "duracionInterfazIntentoMinutos" => 10,
                     "urlRedirect" => "https://madezon.app/orders",
-                    "urlWebhook" => "https://madezon.app/checkout/webhook",
+                    "urlWebhook" => "https://madezon.app/api/checkout/webhook",
                     "notificarTransaccionCliente" => true
                 ]
             ]);
