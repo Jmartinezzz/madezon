@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ValidationError = ({ message }) => {
+const ValidationError = ({ message, className = "" }) => {
     return (
-        <div className="text-red-400">
+        <div className={`text-red-400 ${className}`}>
             {message}
         </div>
     );

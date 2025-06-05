@@ -1,6 +1,6 @@
-import PrimaryButton from '@/Components/PrimaryButton';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Button } from 'primereact/button';
 
 export default function VerifyEmail({ status }) {
     const { post, processing } = useForm({});
@@ -13,7 +13,7 @@ export default function VerifyEmail({ status }) {
 
     return (
         <GuestLayout>
-            <Head title="Email Verification" />
+            <Head title="Verificación de correo" />
 
             <div className="mb-4 text-sm text-gray-600">
                 Thanks for signing up! Before getting started, could you verify
@@ -30,10 +30,8 @@ export default function VerifyEmail({ status }) {
             )}
 
             <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>
-                        Resend Verification Email
-                    </PrimaryButton>
+                <div className="mt-4 flex align-items-center justify-content-between">
+                    <Button disabled={processing} label='Reenviar verificación de correo'/>
 
                     <Link
                         href={route('logout')}

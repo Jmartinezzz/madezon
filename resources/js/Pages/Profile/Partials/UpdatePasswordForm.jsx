@@ -1,15 +1,10 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import ValidationError from '@/Components/ValidationError';
+import { Button } from 'primereact/button';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
-import { useRef } from 'react';
+import { InputText } from 'primereact/inputtext';
 
-export default function UpdatePasswordForm({ className = '' }) {
-    const passwordInput = useRef();
-    const currentPasswordInput = useRef();
-
+export default function UpdatePasswordForm() {
     const {
         data,
         setData,
@@ -33,96 +28,72 @@ export default function UpdatePasswordForm({ className = '' }) {
             onError: (errors) => {
                 if (errors.password) {
                     reset('password', 'password_confirmation');
-                    passwordInput.current.focus();
                 }
 
                 if (errors.current_password) {
                     reset('current_password');
-                    currentPasswordInput.current.focus();
                 }
             },
         });
     };
 
     return (
-        <section className={className}>
+        <section className='mt-4'>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Update Password
+                    Actualizar contraseña
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay
-                    secure.
+                    Asegúrese de que su cuenta esté utilizando una contraseña larga y aleatoria para mantenerse segura.
                 </p>
             </header>
 
-            <form onSubmit={updatePassword} className="mt-6 space-y-6">
+            <form onSubmit={updatePassword} className="mt-3">
                 <div>
-                    <InputLabel
-                        htmlFor="current_password"
-                        value="Current Password"
-                    />
-
-                    <TextInput
+                    <label className='text-800' htmlFor="current_password">Contraseña Actual</label>
+                    <InputText
                         id="current_password"
-                        ref={currentPasswordInput}
                         value={data.current_password}
                         onChange={(e) =>
                             setData('current_password', e.target.value)
                         }
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
+                        className='w-full mt-2 shadow-1'
+                        type='password' 
+                        tabIndex={1} 
                     />
-
-                    <InputError
-                        message={errors.current_password}
-                        className="mt-2"
-                    />
+                    <ValidationError message={errors.current_password} className="mt-2" />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="password" value="New Password" />
-
-                    <TextInput
+                <div className='mt-3'>
+                    <label className='text-800' htmlFor="password">Nueva Contraseña</label>
+                    <InputText
                         id="password"
-                        ref={passwordInput}
                         value={data.password}
                         onChange={(e) => setData('password', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
+                        className='w-full mt-2 shadow-1'
+                        type='password'  tabIndex={2} 
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    <ValidationError message={errors.password} className="mt-2" />
                 </div>
 
-                <div>
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
-                    <TextInput
+                <div className='mt-3'>
+                    <label className='text-800' htmlFor="password_confirmation">Confirmar Contraseña</label>
+                    <InputText
                         id="password_confirmation"
                         value={data.password_confirmation}
                         onChange={(e) =>
                             setData('password_confirmation', e.target.value)
                         }
-                        type="password"
-                        className="mt-1 block w-full"
                         autoComplete="new-password"
+                        className='w-full mt-2 shadow-1'
+                        type='password'  tabIndex={3}
                     />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
+                    <ValidationError message={errors.password_confirmation} className="mt-2" />
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                <div className="flex align-items-center gap-4 mt-3">
+                    <Button disabled={processing}>Guardar</Button>
 
                     <Transition
                         show={recentlySuccessful}
@@ -132,7 +103,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         leaveTo="opacity-0"
                     >
                         <p className="text-sm text-gray-600">
-                            Saved.
+                            Guardado.
                         </p>
                     </Transition>
                 </div>

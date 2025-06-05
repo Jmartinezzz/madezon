@@ -1,7 +1,6 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import ValidationError from '@/Components/ValidationError';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 
@@ -27,66 +26,47 @@ export default function ResetPassword({ token, email }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
+                    <label htmlFor="email">Correo</label>
+                    <InputText
                         id="email"
                         type="email"
-                        name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
+                        className='w-full mt-2 shadow-1'
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <ValidationError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
+                    <label htmlFor="password">Contraseña</label>
+                    <InputText
                         id="password"
-                        type="password"
-                        name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        isFocused={true}
                         onChange={(e) => setData('password', e.target.value)}
+                        className='w-full mt-2 shadow-1'
+                        type='password'  tabIndex={2} 
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    <ValidationError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
-                    <TextInput
-                        type="password"
+                    <label htmlFor="password_confirmation">Repita contraseña</label>
+                     <InputText
                         id="password_confirmation"
-                        name="password_confirmation"
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
+                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        className='w-full mt-2 shadow-1'
+                        type='password'  tabIndex={2} 
                     />
-
-                    <InputError
+                    <ValidationError
                         message={errors.password_confirmation}
                         className="mt-2"
                     />
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
-                    </PrimaryButton>
+                <div className="mt-4 flex align-items-center justify-content-end">
+                    <Button disabled={processing}  label='Reestablecer contraseña'/>
                 </div>
             </form>
         </GuestLayout>

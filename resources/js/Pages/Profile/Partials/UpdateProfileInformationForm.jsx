@@ -1,14 +1,12 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import ValidationError from '@/Components/ValidationError';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
-    className = '',
 }) {
     const user = usePage().props.auth.user;
 
@@ -25,48 +23,47 @@ export default function UpdateProfileInformation({
     };
 
     return (
-        <section className={className}>
+        <section>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Profile Information
+                    Información de perfil
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Actualice la información del perfil de su cuenta y la dirección de correo electrónico.
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
+            <form onSubmit={submit} className="mt-3">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
+                    <label className='text-800' htmlFor="name">Nombre</label>
+                    <InputText
                         id="name"
-                        className="mt-1 block w-full"
                         value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
+                        onChange={(e) =>
+                            setData('name', e.target.value)
+                        }
                         required
-                        isFocused
-                        autoComplete="name"
+                        className='w-full mt-2 shadow-1'
+                        tabIndex={1}
                     />
-
-                    <InputError className="mt-2" message={errors.name} />
+                    <ValidationError message={errors.name} className="mt-2" />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
+                <div className='mt-3'>
+                    <label className='text-800' htmlFor="email">Correo Electrónico</label>
+                    <InputText
                         id="email"
-                        type="email"
-                        className="mt-1 block w-full"
                         value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) =>
+                            setData('email', e.target.value)
+                        }
                         required
+                        className='w-full mt-2 shadow-1'
                         autoComplete="username"
+                        tabIndex={2}
                     />
-
-                    <InputError className="mt-2" message={errors.email} />
+                    <ValidationError message={errors.email} className="mt-2" />
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
@@ -79,7 +76,7 @@ export default function UpdateProfileInformation({
                                 as="button"
                                 className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
-                                Click here to re-send the verification email.
+                                Haga clic aquí para volver a enviar el correo electrónico de verificación.
                             </Link>
                         </p>
 
@@ -92,8 +89,8 @@ export default function UpdateProfileInformation({
                     </div>
                 )}
 
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                <div className="flex items-center gap-4 mt-3">
+                    <Button disabled={processing}>Guardar</Button>
 
                     <Transition
                         show={recentlySuccessful}
@@ -103,7 +100,7 @@ export default function UpdateProfileInformation({
                         leaveTo="opacity-0"
                     >
                         <p className="text-sm text-gray-600">
-                            Saved.
+                            Guardado.
                         </p>
                     </Transition>
                 </div>

@@ -19,10 +19,6 @@ Route::get('/tienda', [StoreController::class, 'index'])->name('store');
 
 Route::get('/productos/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::post('/checkout/webhook', [OrderController::class, 'handleWompiWebhook']);
 
 Route::middleware('auth')->group(function () {
