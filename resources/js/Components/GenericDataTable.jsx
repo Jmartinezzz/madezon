@@ -24,6 +24,7 @@ const GenericDataTable = forwardRef((
         useModalEdit = false,
         onFindItem,
         showActionColumn = true,
+        showDeleteAction = true,
         isSelectRowEnabled = false,
         selectedItems,
         onSelectionChange,
@@ -201,6 +202,18 @@ const GenericDataTable = forwardRef((
         }
     };
 
+    const customExternalLinkTemplate = (field) => {
+        return (item) => {
+            return <a
+                href={item[field]}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                { item[field] }
+            </a>
+        }
+    };
+
     const renderColumns = () => {
         return columns.map((col) => {
             let filterElement;
@@ -289,6 +302,20 @@ const GenericDataTable = forwardRef((
                             filterElement={filterElement}
                             body={customBadgeBodyTemplate(col.typeOptions, col.field)}
                             showFilterMenu={false}
+                            style={{ minWidth: `${col.customWidth ?? 5}rem` }}
+                        />
+                    );
+                case 'externalLink':
+                    return (
+                        <Column
+                            key={col.field}
+                            header={col.header}
+                            sortable={col.sortable}
+                            filter={col.filter}
+                            filterField={col.filterField}
+                            filterElement={filterElement}
+                            body={customExternalLinkTemplate(col.field)}
+                            showFilterMenu={false}
                             style={{ minWidth: '4rem' }}
                         />
                     );
@@ -328,12 +355,19 @@ const GenericDataTable = forwardRef((
     const renderEditAction = (id) => {
         if (useModalEdit) {
             return (
-                <Button icon="pi pi-pencil" rounded text raised severity="warning" onClick={() => findItemForModal(id)} />
+                <Button 
+                    icon="pi pi-pencil"
+                    rounded text raised
+                    severity="warning"
+                    onClick={() => findItemForModal(id)}
+                    tooltip="Editar"
+                    tooltipOptions={{ position: 'top'}}
+                />
             );
         }
 
         return (
-            <Link href={editRoute(id)} onClick={(e) => e.preventDefault()}><Button icon="pi pi-pencil" rounded text raised severity="warning" disabled={disableEditButton} /></Link>
+            <Link href={editRoute(id)} onClick={(e) => e.preventDefault()}><Button icon="pi pi-pencil" rounded text raised severity="warning" /></Link>
         );
     };
 
@@ -366,11 +400,16 @@ const GenericDataTable = forwardRef((
                 {
                     renderEditAction(rowData.id)
                 }
-                <Button
-                    icon="pi pi-trash"
-                    rounded text raised severity="danger"
-                    onClick={() => handleDelete(rowData)}
-                />
+                {showDeleteAction && (
+                    <Button
+                        icon="pi pi-trash"
+                        rounded text raised severity="danger"
+                        onClick={() => handleDelete(rowData)}
+                        tooltip="Eliminar"
+                        tooltipOptions={{ position: 'top'}}
+                    />
+                )}
+                
             </div>
         );
     };

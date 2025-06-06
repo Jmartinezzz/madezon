@@ -20,12 +20,12 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <>
-            <Head title="Login" />
+            <Head title="Inicio de sesión" />
 
             <div className="flex h-screen">
                 {/* Imagen y frase (lado izquierdo) */}
                 <div
-                    className="w-7 hidden md:flex flex-column justify-content-center align-items-center p-8 text-white"
+                    className="w-7 hidden md:flex flex-column justify-content-center align-items-center p-8"
                     style={{
                         backgroundImage: "url('/path-to-your-image.jpg')",
                         backgroundSize: 'cover',

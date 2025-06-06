@@ -6,6 +6,8 @@ import { Card } from 'primereact/card';
 import { Tag } from 'primereact/tag';
 import moment from '@/moment-config';
 import _ from 'lodash';
+import { Button } from 'primereact/button';
+import { Tooltip } from 'primereact/tooltip';
 
 export default function Orders({ orders }) {
     const getSeverity = (status) => {
@@ -65,6 +67,31 @@ export default function Orders({ orders }) {
                                                 </div>
                                             ))}
                                         </div>
+                                        <div className="flex align-items-baseline gap-2 mt-3">
+                                            <Button
+                                                className='p-2 mt-4 flex justify-content-center gap-2 align-items-start'  
+                                                raised
+                                                disabled={order.status != "pendiente"}
+                                                onClick={() => {
+                                                    // window.location.href = order.payment_link
+                                                    window.open(order.payment_link, '_blank');
+                                                }} 
+                                            >
+                                                <i className='pi pi-external-link'></i>
+                                                Enlace de pago
+                                            </Button>
+                                           { order.status != "pendiente" && (
+                                            <>
+                                                <Tooltip target={`#info${order.id}`} />
+                                                <i
+                                                    id={`info${order.id}`}
+                                                    className="pi pi-info-circle text-sm"
+                                                    data-pr-tooltip="Si el estado de la orden es pagado o cancelado el enlace estará deshabilitado"
+                                                    data-pr-position="right"
+                                                ></i>
+                                            </>
+                                           )}
+                                        </div>                                        
                                         <div className="flex justify-content-end mt-5 text-lg font-semibold">
                                             <span>Total: {order.amount}</span>
                                         </div>                                        

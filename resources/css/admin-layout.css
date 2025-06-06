@@ -1499,7 +1499,7 @@
 
 .p-column-filter-menu-button,
 .p-column-filter-clear-button {
-    display: inline-flex;
+    display: none;
     justify-content: center;
     align-items: center;
     cursor: pointer;

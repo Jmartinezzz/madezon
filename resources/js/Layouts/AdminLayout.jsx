@@ -124,7 +124,7 @@ const AdminLayout = ({ children }) => {
                 </div>
                 <div className="layout-main-container">
                     <div className="layout-main">
-                        <div className="overflow-hidden bg-white shadow-2 px-4 pt-4 pb-5">
+                        <div className="overflow-hidden border-round-lg bg-white shadow-2 px-4 pt-4 pb-5">
                             {children}
                         </div>
                     </div>
