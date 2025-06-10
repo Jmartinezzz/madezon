@@ -18,8 +18,9 @@ export default function UpdateProfileInformation({
 
     const submit = (e) => {
         e.preventDefault();
-
-        patch(route('profile.update'));
+        if (!user.has_social_login) {
+            patch(route('profile.update'));
+        }
     };
 
     return (
@@ -46,6 +47,7 @@ export default function UpdateProfileInformation({
                         required
                         className='w-full mt-2 shadow-1'
                         tabIndex={1}
+                        disabled={user.has_social_login}
                     />
                     <ValidationError message={errors.name} className="mt-2" />
                 </div>
@@ -62,6 +64,7 @@ export default function UpdateProfileInformation({
                         className='w-full mt-2 shadow-1'
                         autoComplete="username"
                         tabIndex={2}
+                        disabled={user.has_social_login}
                     />
                     <ValidationError message={errors.email} className="mt-2" />
                 </div>
@@ -90,7 +93,7 @@ export default function UpdateProfileInformation({
                 )}
 
                 <div className="flex items-center gap-4 mt-3">
-                    <Button disabled={processing}>Guardar</Button>
+                    <Button disabled={processing || user.has_social_login}>Guardar</Button>
 
                     <Transition
                         show={recentlySuccessful}

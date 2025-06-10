@@ -3,6 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
+import { Divider } from 'primereact/divider';
+import SocialButtons from './SocialButtons';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -109,8 +111,13 @@ export default function Login({ status, canResetPassword }) {
                                 disabled={processing}
                             />
 
+                            <Divider layout="horizontal" className="flex" align="center">
+                                <span>o</span>
+                            </Divider>
+                            <SocialButtons className="flex gap-3" processing={processing} />
+
                             {/* Opción de registro */}
-                            <p className="mt-4 text-center text-sm">
+                            <p className="mt-4 text-center">
                                 ¿No tienes una cuenta?{' '}
                                 <Link href={route('register')} className="text-primary underline">
                                     Regístrate

@@ -22,9 +22,9 @@ export default function ResetPassword({ token, email }) {
 
     return (
         <GuestLayout>
-            <Head title="Reset Password" />
+            <Head title="Reestablecer contraseña" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className='text-900'>
                 <div>
                     <label htmlFor="email">Correo</label>
                     <InputText

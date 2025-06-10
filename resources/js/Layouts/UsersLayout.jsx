@@ -14,7 +14,7 @@ import { loadCart, migrateGuestCartToUserCart } from '@/store/cart/cartThunks';
 
 export default function UsersLayout({ children }) {
     const user = usePage().props.auth.user;
-
+    
     const menuRef = useRef(null);
     const dispatch = useDispatch();
     const [cartVisible, setCartVisible] = useState(false);
@@ -95,18 +95,14 @@ export default function UsersLayout({ children }) {
             label: 'Inicio',
             icon: 'pi pi-home',
             url: route('home'),
+            staticUrl: '/inicio',
             template: itemTemplate,
         },
         {
             label: 'Tienda',
             icon: 'pi pi-shop',
             url: route('store'),
-            template: itemTemplate,
-        },
-        {
-            label: 'Settings',
-            icon: 'pi pi-cog',
-            url: '/settings',
+            staticUrl: '/tienda',
             template: itemTemplate,
         },
     ];

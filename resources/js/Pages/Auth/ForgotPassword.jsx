@@ -17,12 +17,11 @@ export default function ForgotPassword({ status }) {
 
     return (
         <GuestLayout>
-            <Head title="Forgot Password" />
+            <Head title="¿Olvidaste tu contraseña?" />
 
-            <div className="mb-4 text-sm text-gray-600">
+            <div className="mb-4 text-gray-700">
                 ¿Olvidaste tu contraseña? Ningún problema. Solo háganos saber su correo electrónico
-                dirección y le enviaremos un correo electrónico a un enlace de restablecimiento de contraseña que
-                Permitirle elegir uno nuevo.
+                y le enviaremos un correo electrónico a un enlace de restablecimiento de contraseña.
             </div>
 
             {status && (
@@ -46,8 +45,8 @@ export default function ForgotPassword({ status }) {
 
                 <ValidationError message={errors.email} className="mt-2" />
 
-                <div className="mt-4 flex align-items-center justify-content-end">
-                    <Button disabled={processing}>Enviar enlace de reestablecimiento</Button>
+                <div className="mt-4 flex align-items-center justify-content-center md:justify-content-end">
+                    <Button disabled={processing} raised className='font-semibold'>Enviar enlace de reestablecimiento</Button>
                 </div>
             </form>
         </GuestLayout>

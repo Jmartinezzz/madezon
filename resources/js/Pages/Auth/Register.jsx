@@ -3,6 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
+import { Divider } from 'primereact/divider';
+import SocialButtons from './SocialButtons';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -109,9 +111,13 @@ export default function Register() {
                             {/* Action Buttons */}
                             <div className="flex flex-column align-items-center gap-3 mt-4">
                                 <Button label="Registrarse" icon="pi pi-user-plus" type="submit" disabled={processing} />
+                                <Divider layout="horizontal" className="flex" align="center">
+                                    <span>o</span>
+                                </Divider>
+                                <SocialButtons className="flex gap-3 w-full" processing={processing} />
                                 <Link
                                     href={route('login')}
-                                    className="text-sm underline text-primary hover:text-primary-700"
+                                    className="underline text-primary hover:text-primary-700"
                                 >
                                     ¿Ya tienes cuenta?
                                 </Link>

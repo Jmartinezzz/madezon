@@ -1,4 +1,5 @@
 import UsersLayout from '@/Layouts/UsersLayout';
+import { usePage } from '@inertiajs/react'
 import { Head } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import { Divider } from 'primereact/divider';
@@ -6,6 +7,9 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 
 export default function Edit({ mustVerifyEmail, status }) {
+    const user = usePage().props.auth.user;
+    console.log(user);
+    
     return (
         <UsersLayout>
             <Head title="Perfil" />
@@ -19,7 +23,7 @@ export default function Edit({ mustVerifyEmail, status }) {
                     </div>
                     <Divider />
                     <div className="">
-                        <UpdatePasswordForm />
+                        {!user.has_social_login && <UpdatePasswordForm />}
                     </div>
                     <div className="">
                         {/* <DeleteUserForm /> */}
