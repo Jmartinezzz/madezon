@@ -170,10 +170,10 @@ const GenericDataTable = forwardRef((
     };
 
     const priceBodyTemplate = (field) => {
-         return (item) => {
+        return (item) => {
             const value = Number(item[field]);
             return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-        }        
+        }
     };
 
     const customBooleanBodyTemplate = (col) => {
@@ -208,8 +208,9 @@ const GenericDataTable = forwardRef((
                 href={item[field]}
                 target="_blank"
                 rel="noopener noreferrer"
+                title={item[field]}
             >
-                { item[field] }
+                {item[field]}
             </a>
         }
     };
@@ -316,7 +317,12 @@ const GenericDataTable = forwardRef((
                             filterElement={filterElement}
                             body={customExternalLinkTemplate(col.field)}
                             showFilterMenu={false}
-                            style={{ minWidth: '4rem' }}
+                            bodyStyle={{
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden', 
+                                textOverflow: 'ellipsis'
+                            }}
+                            style={{ maxWidth: '200px' }}
                         />
                     );
                 default:
@@ -355,13 +361,13 @@ const GenericDataTable = forwardRef((
     const renderEditAction = (id) => {
         if (useModalEdit) {
             return (
-                <Button 
+                <Button
                     icon="pi pi-pencil"
                     rounded text raised
                     severity="warning"
                     onClick={() => findItemForModal(id)}
                     tooltip="Editar"
-                    tooltipOptions={{ position: 'top'}}
+                    tooltipOptions={{ position: 'top' }}
                 />
             );
         }
@@ -406,10 +412,10 @@ const GenericDataTable = forwardRef((
                         rounded text raised severity="danger"
                         onClick={() => handleDelete(rowData)}
                         tooltip="Eliminar"
-                        tooltipOptions={{ position: 'top'}}
+                        tooltipOptions={{ position: 'top' }}
                     />
                 )}
-                
+
             </div>
         );
     };

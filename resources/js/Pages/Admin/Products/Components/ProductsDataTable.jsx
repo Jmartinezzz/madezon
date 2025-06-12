@@ -37,7 +37,7 @@ const ProductsDataTable = ({onMount}) => {
             filterField: "id",
             filterType: "text",
             type: "id"
-        },       
+        },
         {
             field: "name",
             header: "Name",

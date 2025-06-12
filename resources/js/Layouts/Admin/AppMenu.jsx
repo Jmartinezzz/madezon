@@ -14,6 +14,7 @@ const AppMenu = () => {
             items: [
                 { label: 'Products', icon: 'pi pi-fw pi-id-card', to: route('admin.products.index') },
                 { label: 'Orders', icon: 'pi pi-fw pi-book', to: route('admin.orders.index') },
+                { label: 'Quotes', icon: 'pi pi-fw pi-amazon', to: route('admin.quotes.index') },
             ],
         },
     ];

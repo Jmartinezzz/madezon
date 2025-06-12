@@ -8,8 +8,7 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 
 export default function Edit({ mustVerifyEmail, status }) {
     const user = usePage().props.auth.user;
-    console.log(user);
-    
+
     return (
         <UsersLayout>
             <Head title="Perfil" />

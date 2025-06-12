@@ -13,8 +13,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadCart, migrateGuestCartToUserCart } from '@/store/cart/cartThunks';
 
 export default function UsersLayout({ children }) {
-    const user = usePage().props.auth.user;
-    
+    const { props: { auth: { user } }, url } = usePage();
+
     const menuRef = useRef(null);
     const dispatch = useDispatch();
     const [cartVisible, setCartVisible] = useState(false);
@@ -40,6 +40,11 @@ export default function UsersLayout({ children }) {
             label: 'Mis Pedidos',
             icon: 'pi pi-book',
             command: () => (window.location.href = route('profile.orders')),
+        },
+        {
+            label: 'Cotizar',
+            icon: 'pi pi-amazon',
+            command: () => (window.location.href = route('cotizaciones.create')),
         },
         {
             label: 'Salir',
@@ -77,10 +82,19 @@ export default function UsersLayout({ children }) {
     ];
 
     const itemTemplate = (item, options) => {
+        const isActive = url.startsWith(item.staticUrl);
+
         return (
             <Link
                 href={item.url}
-                className={`px-3 py-2 text-white hover:text-700 transition-colors duration-200 ${options.className}`}
+                className={`
+                    py-2
+                    text-white hover:text-700 font-semibold
+                    ${isActive
+                        ? 'border-bottom-2 border-400'
+                        : ''
+                    }
+                    ${options.className}`}
             >
                 <div className='flex align-items-baseline gap-1'>
                     {item.icon && <i className={`${item.icon} text-base`} />}
@@ -113,22 +127,30 @@ export default function UsersLayout({ children }) {
         </Link>
     );
 
-    //please refactor
-    const end = user ? (
+    const avatar_img = user ? `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}` : '/assets/img/avatar-thumbnail.png'
+    const end = (
         <div className="flex align-items-center gap-3">
             <div className="input-search-wrapper">
-                <InputText placeholder="Encuentra lo que necesitas" type="text" className="w-full" />
+                <InputText placeholder="Encuentra lo que necesitas" className="w-full border-round-md p-inputtext-lg" />
             </div>
-            <span className="text-sm text-white font-semibold hidden sm:block">
-                {user.name}
-            </span>
+            {user && (
+                <span className="text-sm text-white font-semibold hidden sm:block">
+                    {user.name}
+                </span>
+            )}
             <Avatar
-                image={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}`}
+                image={avatar_img}
                 shape="circle"
                 className="cursor-pointer"
                 onClick={(e) => menuRef.current.toggle(e)}
             />
-            <Menu model={userMenu} popup ref={menuRef} />
+
+            <Menu
+                model={user ? userMenu : guestMenu}
+                popup
+                ref={menuRef}
+            />
+            
             <i
                 className="pi pi-shopping-cart p-overlay-badge cursor-pointer"
                 style={{ fontSize: '1.8rem' }}
@@ -137,27 +159,7 @@ export default function UsersLayout({ children }) {
                 <Badge value={totalItems} severity="secondary"></Badge>
             </i>
         </div>
-    ) : (
-        <div className="flex align-items-center gap-3">
-            <div className="input-search-wrapper">
-                <InputText placeholder="Encuentra lo que necesitas" type="text" className="w-full" />
-            </div>
-            <Avatar
-                image="/assets/img/avatar-thumbnail.png"
-                shape="circle"
-                className="cursor-pointer"
-                onClick={(e) => menuRef.current.toggle(e)}
-            />
-            <Menu model={guestMenu} popup ref={menuRef} />
-            <i
-                className="pi pi-shopping-cart p-overlay-badge cursor-pointer"
-                style={{ fontSize: '1.8rem' }}
-                onClick={() => setCartVisible(true)}
-            >
-                <Badge value={totalItems} severity="secondary"></Badge>
-            </i>
-        </div>
-    );
+    )
 
     return (
         <>
