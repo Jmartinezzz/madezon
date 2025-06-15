@@ -112,8 +112,8 @@ const ProductsDataTable = ({onMount}) => {
         },          
         {
             field: "image",
-            header: "image",
-            customWidth: "7",
+            header: "Image",
+            type: "image",
         },          
         {
             field: "status",

@@ -30,7 +30,7 @@ export default function Orders({ orders }) {
                 {orders.length === 0 ? (
                     <div className="flex justify-content-center mt-6">
                         <div className="text-center text-gray-600 p-4 border rounded shadow-sm flex flex-column">
-                            <img src="/assets/img/undraw_no_orders.svg" alt="" />
+                            <img src="/assets/img/undraw_no_orders.svg" alt="sin ordenes" />
                             Aún no hay órdenes realizadas.
                         </div>
                     </div>

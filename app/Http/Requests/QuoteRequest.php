@@ -31,7 +31,7 @@ class QuoteRequest extends FormRequest
             'image' => ['nullable'],
             'notes' => ['nullable', 'max:250'],
             'name' => ['required'],
-            'phone' => ['required'],         
+            'phone' => ['required', 'max:8'],         
             'email' => ['required'],         
         ];
     }

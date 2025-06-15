@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingValue(100);
             $table->foreignId('user_id')
                 ->constrained()->onUpdate('cascade');
             $table->uuid('reference')->unique();

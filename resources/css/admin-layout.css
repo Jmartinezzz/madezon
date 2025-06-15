@@ -3514,6 +3514,7 @@ input.p-dropdown-label  {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
 .p-image-preview {

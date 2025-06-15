@@ -17,8 +17,13 @@ export default function Tienda({ products }) {
                     </div>
                     ))
                 ) : (
-                    <div className="col-12 text-center p-4">
-                        <p>No hay productos disponibles.</p>
+                    <div className="col-12 p-4">
+                     <div className="flex justify-content-center mt-2">
+                        <div className="text-center text-gray-800 p-4 flex flex-column w-12 md:w-9 xl:w-6">
+                            <img src="/assets/img/undraw_empty_search.svg" alt="sin productos" />
+                            <p className='text-xl'>No hay productos disponibles.</p>
+                        </div>
+                    </div>
                     </div>
                 )}             
             </div>

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('quotes', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingValue(100);
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained()

@@ -11,6 +11,7 @@ import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { Tag } from 'primereact/tag';
 import { Badge } from 'primereact/badge';
+import { Image } from 'primereact/image';
 import InputDynamicFilter from "./InputDynamicFilter";
 
 const GenericDataTable = forwardRef((
@@ -215,6 +216,17 @@ const GenericDataTable = forwardRef((
         }
     };
 
+    const customImageTemplate = (field) => {
+        return (item) => {
+            if (!item[field] || item[field].trim() === '') {
+                return null;
+            }
+            return <div className="flex justify-content-center">
+                <Image src={item[field]} zoomSrc={item[field]} alt="Image" width="80" height="60" preview />
+            </div>
+        }
+    };
+
     const renderColumns = () => {
         return columns.map((col) => {
             let filterElement;
@@ -319,10 +331,24 @@ const GenericDataTable = forwardRef((
                             showFilterMenu={false}
                             bodyStyle={{
                                 whiteSpace: 'nowrap',
-                                overflow: 'hidden', 
+                                overflow: 'hidden',
                                 textOverflow: 'ellipsis'
                             }}
                             style={{ maxWidth: '200px' }}
+                        />
+                    );
+                case 'image':
+                    return (
+                        <Column
+                            key={col.field}
+                            header={col.header}
+                            sortable={col.sortable}
+                            filter={col.filter}
+                            filterField={col.filterField}
+                            filterElement={filterElement}
+                            body={customImageTemplate(col.field)}
+                            showFilterMenu={false}
+                            style={{ maxWidth: '7rem' }}
                         />
                     );
                 default:

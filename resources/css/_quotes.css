@@ -6,17 +6,6 @@ xl	1200px
 2xl	1400px 
 */
 
-.custom-padding {
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-}
-
-.custom-padding::placeholder {
-    text-align: center;
-    font-style: normal;
-    color: #999;
-}
-
 @media (min-width: 520px) {}
 
 @media (min-width: 576px) {}
