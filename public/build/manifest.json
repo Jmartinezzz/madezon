@@ -856,7 +856,7 @@
     ]
   },
   "resources/js/Pages/Inicio.jsx": {
-    "file": "assets/Inicio-DpyXHh7P.js",
+    "file": "assets/Inicio-DXpJ9I1f.js",
     "name": "Inicio",
     "src": "resources/js/Pages/Inicio.jsx",
     "isDynamicEntry": true,
@@ -1036,7 +1036,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DhaWmyAH.js",
+    "file": "assets/app-COvnIkxg.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -1090,7 +1090,7 @@
     ]
   },
   "resources/js/appAdmin.jsx": {
-    "file": "assets/appAdmin-CXNMKIaM.js",
+    "file": "assets/appAdmin-B29uYdoT.js",
     "name": "appAdmin",
     "src": "resources/js/appAdmin.jsx",
     "isEntry": true,

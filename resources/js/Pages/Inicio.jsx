@@ -32,7 +32,13 @@ export default function Inicio() {
                     <section>
                         <span className="block text-6xl font-bold mb-1">🚧 Próximamente</span>
                         <div className="text-6xl text-primary font-bold mb-3">Compras por Madezon App</div>
-                        <p className="mt-0 mb-4 text-700 line-height-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p className="mt-0 mb-4 text-700 line-height-3">
+                            Muy pronto podrás comprar tus productos directamente desde nuestra tienda 
+                            en línea. con la opción de reservar tu pedido con solo el 50% del total. 
+                            ¡Fácil, seguro y a tu ritmo!
+                            {/* Contaremos con múltiples formas de pago, incluyendo Wompi, 
+                            transferencia y pago contra entrega,  */}
+                        </p>
 
                         <Button label="Quiero Cotizar" type="button" className="mr-3 p-button-raised" onClick={() => router.get(route('cotizaciones.create'))} />
                         <Button label="Ir a la Tienda" type="button" outlined raised onClick={() => router.get(route('store'))} />
