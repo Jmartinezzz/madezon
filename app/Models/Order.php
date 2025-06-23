@@ -6,9 +6,12 @@ use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\ClearDashboardCache;
 
 class Order extends Model
 {
+    use ClearDashboardCache;
+
     protected $guarded = ['id'];
 
     protected $casts = [

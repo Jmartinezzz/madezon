@@ -18,6 +18,10 @@ Route::get('/inicio', function () {
 })->name('home');
 
 Route::get('/tienda', [StoreController::class, 'index'])->name('store');
+Route::get('/politicas-privacidad', [StoreController::class, 'policies'])->name('policies');
+Route::get('/terminos-condiciones', [StoreController::class, 'conditions'])->name('conditions');
+Route::get('/eliminacion-datos', [StoreController::class, 'destroyData'])->name('destroyData');
+Route::get('/contacto', [StoreController::class, 'contact'])->name('contact');
 
 Route::get('/productos/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 

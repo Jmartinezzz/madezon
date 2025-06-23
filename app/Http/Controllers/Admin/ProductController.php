@@ -8,6 +8,7 @@ use App\Services\DataTableService;
 use App\Services\ProductService;
 use App\Models\Admin\Product;
 use App\Models\Admin\ProductImage;
+use App\Models\Admin\SubCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
@@ -24,8 +25,11 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        $request->merge(['relationships' => ['subCategory.category:id,name']]);
+        $sub_categories = transformToLabelValue(SubCategory::select('id', 'name')->get());
         return Inertia::render('Admin/Products/ProductIndex', [
             'data' => $this->dataTableService->paginateRecordsList($request, []),
+            'subCategories' => $sub_categories
         ]);
     }
 

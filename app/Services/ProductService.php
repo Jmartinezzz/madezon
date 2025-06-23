@@ -39,7 +39,7 @@ class ProductService
         return response()->json(['error' => "Error deleting image"], 500);
     }
 
-    public function createImages(Product $product, array $images)
+    public function createImages(Product $product, ?array $images)
     {
         $folderName = $product->slug;
         if (!empty($images) && is_array($images)) {

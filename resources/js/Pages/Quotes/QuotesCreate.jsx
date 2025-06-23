@@ -225,7 +225,7 @@ export default function QuotesCreate({ }) {
                                         <ValidationError message={errors['email']} />
                                     </section>
                                     <span className='text-600 text-base'>También nos puedes consultar sobre tu producto en
-                                        <a className='no-underline' href="https://api.whatsapp.com/send?phone=+50378676968&text=Hola, me gustaría hacer una cotización"> WhatsApp</a>
+                                        <a className='no-underline' href="https://api.whatsapp.com/send?phone=+50362054809&text=Hola, me gustaría hacer una cotización"> WhatsApp</a>
                                     </span>
                                     <section className='flex justify-content-end mt-3'>
                                         <Button label='Cotizar' raised loading={processing} />

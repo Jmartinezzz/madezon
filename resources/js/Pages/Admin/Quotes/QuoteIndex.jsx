@@ -1,8 +1,7 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import React, { useRef } from "react";
-import { Head, usePage } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import QuotesDataTable from "./Components/QuotesDataTable";
-import { Button } from 'primereact/button';        
 import { Divider } from "primereact/divider";
 
 export default function QuoteIndex() {

@@ -3,9 +3,10 @@ import { usePage } from "@inertiajs/react";
 import GenericDataTable from "@/Components/GenericDataTable";
 import CreateEdit from "../CreateEdit";
 import { Dialog } from "primereact/dialog";
+import { subtract } from "lodash";
 
 const ProductsDataTable = ({onMount}) => {
-    const { data: products } = usePage().props;
+    const { data: products, subCategories } = usePage().props;
     const [showModalEdit, setShowModalEdit] = useState(false);
     const [item, setItem] = useState(null);
 
@@ -44,6 +45,10 @@ const ProductsDataTable = ({onMount}) => {
             filter: true,
             filterField: "name",
             filterType: "text",
+        },
+        {
+            field: "sub_category.category.name",
+            header: "Category",
         },
         {
             field: "stock",
@@ -101,7 +106,7 @@ const ProductsDataTable = ({onMount}) => {
             draggable={false}
             onHide={() => { setShowModalEdit(false); }}
         >
-            <CreateEdit item={item} showModal={setShowModalEdit} />
+            <CreateEdit item={item} showModal={setShowModalEdit} subCategories={subCategories} />
         </Dialog>
        </>
     );

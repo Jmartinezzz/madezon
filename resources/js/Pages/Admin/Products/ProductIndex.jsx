@@ -17,7 +17,7 @@ export default function ProductIndex() {
                             <h3>Products</h3>
                             <Button
                                 icon="pi pi-plus"
-                                label="Nuevo Producto"
+                                label="New Product"
                                 severity="success"
                                 size="small"
                                 onClick={() => {

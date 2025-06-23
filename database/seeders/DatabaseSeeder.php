@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\Category;
+use App\Models\Admin\SubCategory;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,5 +30,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
             'password' => Hash::make('password')
         ]);
+
+        Category::insert([['name' => 'Categoria 1'], ['name' => 'test']]);
+        SubCategory::insert([['category_id' => 1, 'name' => 'sub 1'], ['category_id' => 2, 'name' => 'sub test']]);
     }
 }

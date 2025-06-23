@@ -6,14 +6,16 @@ import { InputText } from 'primereact/inputtext';
 import { Badge } from 'primereact/badge';
 import { Divider } from 'primereact/divider';
 import { useRef } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import NavbarMobile from '@/Components/Layout/NavbarMobile';
 import { motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadCart, migrateGuestCartToUserCart } from '@/store/cart/cartThunks';
+import Footer from '@/Components/Layout/Footer';
 
 export default function UsersLayout({ children }) {
     const { props: { auth: { user } }, url } = usePage();
+    const [searchTerm, setSearchTerm] = useState(() => new URLSearchParams(window.location.search).get('search') || '');
 
     const menuRef = useRef(null);
     const dispatch = useDispatch();
@@ -30,6 +32,12 @@ export default function UsersLayout({ children }) {
         dispatch(loadCart(user?.id));
     }, []);
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            router.get(route('store', {search: searchTerm}))
+        }
+    };
+
     const userMenu = [
         {
             label: 'Perfil',
@@ -42,7 +50,7 @@ export default function UsersLayout({ children }) {
             command: () => (window.location.href = route('profile.orders')),
         },
         {
-            label: 'Cotizar',
+            label: 'Mis Cotizaciones',
             icon: 'pi pi-amazon',
             command: () => (window.location.href = route('cotizaciones.create')),
         },
@@ -123,7 +131,7 @@ export default function UsersLayout({ children }) {
 
     const start = (
         <Link href="/" className="text-xl font-bold text-indigo-500 mr-6">
-            Logo
+            <img src="/assets/img/mdz1.webp" alt="" style={{ width: '3rem', height: '3rem' }} />
         </Link>
     );
 
@@ -131,7 +139,13 @@ export default function UsersLayout({ children }) {
     const end = (
         <div className="flex align-items-center gap-3">
             <div className="input-search-wrapper">
-                <InputText placeholder="Encuentra lo que necesitas" className="w-full border-round-md p-inputtext-lg" />
+                <InputText
+                    value={searchTerm}
+                    placeholder="Encuentra lo que necesitas"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full border-round-md p-inputtext-lg"
+                    onKeyDown={handleKeyDown}
+                />
             </div>
             {user && (
                 <span className="text-sm text-white font-semibold hidden sm:block">
@@ -150,7 +164,7 @@ export default function UsersLayout({ children }) {
                 popup
                 ref={menuRef}
             />
-            
+
             <i
                 className="pi pi-shopping-cart p-overlay-badge cursor-pointer"
                 style={{ fontSize: '1.8rem' }}
@@ -193,9 +207,7 @@ export default function UsersLayout({ children }) {
                     {children}
                     <Divider className='mt-6 mb-4' />
                 </motion.div>
-                <footer className="bg-primary text-white text-center py-4 mt-auto">
-                    © {new Date().getFullYear()} <span className='font-semibold'>Madezon</span>. Todos los derechos reservados.
-                </footer>
+                <Footer />
             </div>
         </>
     );

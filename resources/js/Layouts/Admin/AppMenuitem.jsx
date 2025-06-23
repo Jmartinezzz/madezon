@@ -6,6 +6,7 @@ import { MenuContext } from './context/menucontext';
 import {Link} from "@inertiajs/react";
 
 const AppMenuitem = (props) => {
+    const nodeRef = useRef(null);
     const pathname = route(route().current());
     const searchParams = '';
     const { activeMenu, setActiveMenu } = useContext(MenuContext);
@@ -45,8 +46,8 @@ const AppMenuitem = (props) => {
     };
 
     const subMenu = item.items && item.visible !== false && (
-        <CSSTransition timeout={{ enter: 1000, exit: 450 }} classNames="layout-submenu" in={props.root ? true : active} key={item.label}>
-            <ul>
+        <CSSTransition nodeRef={nodeRef} timeout={{ enter: 1000, exit: 450 }} classNames="layout-submenu" in={props.root ? true : active} key={item.label}>
+            <ul ref={nodeRef}>
                 {item.items.map((child, i) => {
                     return <AppMenuitem item={child} index={i} className={child.badgeClass} parentKey={key} key={child.label} />;
                 })}

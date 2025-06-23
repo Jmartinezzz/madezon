@@ -1,7 +1,7 @@
 import GenericCreateEditForm from '@/Components/GenericCreateEditForm';
 import React from 'react'
 
-const CreateEdit = ({ item, showModal }) => {
+const CreateEdit = ({ item, showModal, subCategories }) => {
     return (
         <GenericCreateEditForm
             title="Product"
@@ -9,6 +9,7 @@ const CreateEdit = ({ item, showModal }) => {
             showModal={showModal}
             fields={[
                 { name: 'name', label: 'Name', placeholder: 'Name', type: 'text' },
+                { name: 'sub_category_id', label: 'Sub categoría', placeholder: 'Sub categoría', type: 'dropdown', options: subCategories },
                 { name: 'description', label: 'Description', placeholder: 'Description', type: 'textarea', rows: '3' },
                 { name: 'short_description', label: 'Short Description', placeholder: 'Short Description', type: 'textarea' },
                 { name: 'price', label: 'Price', placeholder: 'Price', type: 'currency' },

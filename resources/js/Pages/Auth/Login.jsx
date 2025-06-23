@@ -3,7 +3,8 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
-import { Divider } from 'primereact/divider';
+import { Divider } from 'primereact/divider'
+import GuestLayout from '@/Layouts/GuestLayout';;
 import SocialButtons from './SocialButtons';
 
 export default function Login({ status, canResetPassword }) {
@@ -21,10 +22,10 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <>
+        <GuestLayout>
             <Head title="Inicio de sesión" />
 
-            <div className="flex h-screen">
+            <div className="flex mt-7">
                 {/* Imagen y frase (lado izquierdo) */}
                 <div
                     className="w-7 hidden md:flex flex-column justify-content-center align-items-center p-8"
@@ -34,15 +35,15 @@ export default function Login({ status, canResetPassword }) {
                         backgroundPosition: 'center'
                     }}
                 >
-                    <div className="max-w-md">
+                    <div className="max-w-md text-800">
                         <h1 className="text-3xl font-bold mb-4">“Simplemente todas las herramientas que mi equipo y yo necesitamos.”</h1>
                         <p className="text-lg mt-4 font-light">Karen Yue<br />Directora de Tecnología de Marketing</p>
                     </div>
                 </div>
 
                 {/* Formulario (lado derecho) */}
-                <div className="w-full md:w-5 flex align-items-center justify-content-center p-6">
-                    <div className="w-full max-w-md">
+                <div className="w-full md:w-5 flex align-items-center justify-content-center py-6 px-1 md:p-6">
+                    <div className="w-full max-w-md text-900">
                         <h2 className="text-2xl font-bold mb-2">Bienvenido de nuevo a Madezon</h2>
                         <p className="mb-4 text-gray-600">Ingresa tus credenciales para continuar.</p>
 
@@ -127,6 +128,6 @@ export default function Login({ status, canResetPassword }) {
                     </div>
                 </div>
             </div>
-        </>
+        </GuestLayout>
     );
 }

@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
   const subTitle = (
     <div className='flex gap-1'>
       {product.sub_category_id && (
-        <Tag severity="warning" value="celulares" rounded style={{ fontSize: '0.7rem', padding: '12px 8px', height: '22px' }} ></Tag>
+        <Tag severity="warning" value={product.subcategory.category?.name} rounded style={{ fontSize: '0.7rem', padding: '12px 8px', height: '22px' }} ></Tag>
       )}
       <Tag severity="warning" value={`quedan ${product.stock}`} rounded style={{ fontSize: '0.7rem', padding: '12px 8px', height: '22px' }} ></Tag>
       {product.promo_price && (

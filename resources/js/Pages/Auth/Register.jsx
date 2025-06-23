@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { Message } from 'primereact/message';
 import { Divider } from 'primereact/divider';
 import SocialButtons from './SocialButtons';
+import GuestLayout from '@/Layouts/GuestLayout';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -22,27 +23,27 @@ export default function Register() {
     };
 
     return (
-        <>
+        <GuestLayout>
             <Head title="Register" />
-            <div className="flex h-screen">
+            <div className="flex mt-2 md:mt-6">
                 {/* Left side image and text */}
                 <div
-                    className="w-7 hidden md:flex flex-column justify-content-center align-items-center p-8 text-white"
+                    className="w-7 border-1 hidden md:flex flex-column justify-content-center align-items-center p-8 text-white"
                     style={{
                         backgroundImage: "url('/path-to-your-image.jpg')",
                         backgroundSize: 'cover',
                         backgroundPosition: 'center'
                     }}
                 >
-                    <div className="max-w-md">
+                    <div className="max-w-md text-800">
                         <h1 className="text-3xl font-bold mb-4">“Simplemente todas las herramientas que mi equipo y yo necesitamos.”</h1>
                         <p className="text-lg mt-4 font-light">Karen Yue<br />Directora de Tecnología de Marketing</p>
                     </div>
                 </div>
 
                 {/* Right side form */}
-                <div className="w-full md:w-5 flex align-items-center justify-content-center p-6">
-                    <div className="w-full max-w-md">
+                <div className="w-full md:w-5 flex align-items-center justify-content-center py-6 px-3 md:p-6">
+                    <div className="w-full max-w-md text-900">
                         <h2 className="text-2xl font-bold mb-2">Crea tu cuenta en Madezon</h2>
                         <p className="mb-4 text-gray-600">Regístrate para comenzar a construir tu sistema de diseño.</p>
 
@@ -126,6 +127,6 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-        </>
+        </GuestLayout>
     );
 }

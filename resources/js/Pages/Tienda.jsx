@@ -5,6 +5,7 @@ import ProductCard from '@/Components/Store/ProductCard';
 
 
 export default function Tienda({ products }) {
+    
     return (
         <UsersLayout>
             <Head title="Tienda" />
